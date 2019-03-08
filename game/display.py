@@ -7,8 +7,8 @@ class Display():
         return screen
 
     def set_name(name):
-        pygame.display.set_caption("PySnake")
+        pygame.display.set_caption(name)
 
     def frame_clock(frame_speed):
-        
+
         ...
