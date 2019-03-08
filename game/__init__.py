@@ -1,33 +1,84 @@
 import pygame
 from pygame.locals import *
-#from game.display import display_format
 from game.snake import rand_snake_start_location as rand_snake
 from game.snake import snake_style
+from game.apple import rand_apple_pos, apple_style
 
-screen = pygame.display.set_mode((800,600))
-pygame.display.set_caption('PySnake')
+UP = 0
+DOWN = 1
+RIGHT = 2
+LEFT = 3
 
-snake = rand_snake()
-snake_skin = snake_style()
+def controls(snake, snake_direction=LEFT):
+    for event in pygame.event.get():
+
+        if event.type == QUIT:
+            pygame.quit()
+            exit()
+
+        if event.type == KEYDOWN:
+
+            if event.key == K_ESCAPE:
+                pygame.quit()
+                exit()
+
+            if event.key == K_UP:
+                snake_direction = UP
+            if event.key == K_DOWN:
+                snake_direction = DOWN
+            if event.key == K_RIGHT:
+                snake_direction = RIGHT
+            if event.key == K_LEFT:
+                snake_direction = LEFT
+
+    for i in range(len(snake) - 1, 0, -1):
+        snake[i] = (snake[i - 1][0], snake[i - 1][1])
+
+    if snake_direction == UP:
+        snake[0] = (snake[0][0], snake[0][1] - 10)
+    if snake_direction == DOWN:
+        snake[0] = (snake[0][0], snake[0][1] + 10)
+    if snake_direction == RIGHT:
+        snake[0] = (snake[0][0] + 10, snake[0][1])
+    if snake_direction == LEFT:
+        snake[0] = (snake[0][0] - 10, snake[0][1])
+
+    return snake, snake_direction
+    ...
 
 def run_time_game():
+
+    screen = pygame.display.set_mode((800, 600))
+    pygame.display.set_caption("PySnake")
+    clock = pygame.time.Clock()
+
+    snake = rand_snake(lifes=5)
+    snake_skin = snake_style()
+    snake_direction = LEFT
+
+    apple = rand_apple_pos()
+    apple_skin = apple_style()
+
     try:
         pygame.init()
     except Exception as e:
-        print('Há algo de errado com o pygame')
+        print("Há algo de errado com o pygame! \n", e)
         exit()
 
     while True:
 
-        for event in pygame.event.get():
+        # dificuldade
+        clock.tick(10)
 
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
+        # controles
 
-        pygame.display.update()
+        snake, snake_direction = controls(snake, snake_direction)
 
-        screen.fill((0,0,0))
+        screen.fill((0, 0, 0))
+
+        screen.blit(apple_skin, apple)
 
         for pos in snake:
             screen.blit(snake_skin, pos)
+
+        pygame.display.update()

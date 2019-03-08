@@ -1,9 +1,14 @@
 import pygame
 
+class Display():
 
+    def format(X,Y):
+        screen = pygame.display.set_mode((800, 600))
+        return screen
 
+    def set_name(name):
+        pygame.display.set_caption("PySnake")
 
-def display_format():
-    
-
-    return screen
+    def frame_clock(frame_speed):
+        
+        ...
