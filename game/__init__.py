@@ -2,12 +2,24 @@ import pygame
 from pygame.locals import *
 from game.snake import rand_snake_start_location as rand_snake
 from game.snake import snake_style
-from game.apple import rand_apple_pos, apple_style
+from game.apple import rand_apple_pos, apple_style, apple_collision
+from game.display import Display
 
 UP = 0
 DOWN = 1
 RIGHT = 2
 LEFT = 3
+
+def edge_game(snake):
+
+    print(f'x:{snake[0][0]} y:{snake[0][1]}')
+
+    if snake[0][0] < 0:
+        print('borda esquerda')
+    if snake[0][1] < 0:
+        print('borda topo')
+
+    ...
 
 def controls(snake, snake_direction=LEFT):
     for event in pygame.event.get():
@@ -48,7 +60,7 @@ def controls(snake, snake_direction=LEFT):
 
 def run_time_game():
 
-    screen = pygame.display.set_mode((800, 600))
+    screen = Display.format(800,600)
     pygame.display.set_caption("PySnake")
     clock = pygame.time.Clock()
 
@@ -69,6 +81,10 @@ def run_time_game():
 
         # dificuldade
         clock.tick(10)
+
+        edge_game(snake)
+
+        apple = apple_collision(snake,apple)
 
         # controles
 

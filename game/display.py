@@ -2,8 +2,8 @@ import pygame
 
 class Display():
 
-    def format(X,Y):
-        screen = pygame.display.set_mode((800, 600))
+    def format(x,y):
+        screen = pygame.display.set_mode((x, y))
         return screen
 
     def set_name(name):
