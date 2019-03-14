@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from game.snake import rand_snake_start_location as rand_snake
-from game.snake import snake_style
+from game.snake import snake_style, snake_collision
 from game.apple import rand_apple_pos, apple_style, apple_collision
 from game.display import Display
 
@@ -105,7 +105,8 @@ def run_time_game():
         snake = edge_game(snake,display_sise)
 
         snake, snake_direction = controls(snake, snake_direction)
-
+        
+        snake_collision(snake)
 
         screen.fill((0, 0, 0))
 
