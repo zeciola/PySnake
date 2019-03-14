@@ -1,4 +1,4 @@
-import pygame
+import pygame, os
 from pygame.locals import *
 from game.snake import rand_snake_start_location as rand_snake
 from game.snake import snake_style, snake_collision
@@ -13,7 +13,9 @@ LEFT = 3
 
 def edge_game(snake, display_sise):
 
-    print(f"x:{snake[0][0]} y:{snake[0][1]}")
+    os.system('clear')
+
+    print(f"Snake Head:\nx:{snake[0][0]} y:{snake[0][1]}")
 
     if snake[0][0] < 0:
         print("borda esquerda")
@@ -35,14 +37,38 @@ def edge_game(snake, display_sise):
 
 
 def game_over_screen(game_over, screen, display_sise, clock):
-    myfont = pygame.font.SysFont("Comic Sans MS", 30)
+    while game_over ==  False:
+        
+        game_over_font = pygame.font.SysFont("Comic Sans MS", 100)
+        game_over_label = game_over_font.render('GAME OVER',1, (255,0,25))
 
-    label = myfont.render('GAME OVER',1, (0,0,0))
+        msg_font = pygame.font.SysFont("Comic Sans MS", 30)
+        msg_label = msg_font.render('Press RETURN for comtinue game or Q to exit game', 1, (0,0,0))
 
-    screen.fill((255,255,255))
-    screen.blit(label, (display_sise[0]/2,display_sise[1]/2))
-    pygame.display.update()
+        clock.tick(10)
+        screen.fill((255,255,255))
+        screen.blit(game_over_label, (display_sise[0]/2 - 215 ,display_sise[1]/2 - 75))
+        screen.blit(msg_label, (display_sise[0]/2 - 250 ,display_sise[1]/2))
+        pygame.display.update()
+        game_over = contol_exit(game_over)
+            
+def contol_exit(game_over=False):
+    for event in pygame.event.get():
 
+        if event.type == QUIT:
+            pygame.quit()
+            exit()
+
+        if event.type == KEYDOWN:
+
+            if event.key == K_RETURN:
+                run_time_game()
+                game_over = True
+            if event.key == K_q or event.key == K_ESCAPE:
+                game_over = True
+                pygame.quit()
+                exit()
+    return game_over
 
 def controls(snake, snake_direction=LEFT):
     for event in pygame.event.get():
