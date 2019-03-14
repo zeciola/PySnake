@@ -34,6 +34,16 @@ def edge_game(snake, display_sise):
     return snake
 
 
+def game_over_screen(game_over, screen, display_sise, clock):
+    myfont = pygame.font.SysFont("Comic Sans MS", 30)
+
+    label = myfont.render('GAME OVER',1, (0,0,0))
+
+    screen.fill((255,255,255))
+    screen.blit(label, (display_sise[0]/2,display_sise[1]/2))
+    pygame.display.update()
+
+
 def controls(snake, snake_direction=LEFT):
     for event in pygame.event.get():
 
@@ -69,10 +79,11 @@ def controls(snake, snake_direction=LEFT):
         snake[0] = (snake[0][0] - 10, snake[0][1])
 
     return snake, snake_direction
-    ...
 
 
 def run_time_game():
+
+    game_over = True
 
     display_sise = (800, 600)
 
@@ -87,16 +98,18 @@ def run_time_game():
     apple = rand_apple_pos()
     apple_skin = apple_style()
 
+    frame = 10
+
     try:
         pygame.init()
     except Exception as e:
         print("Há algo de errado com o pygame! \n", e)
         exit()
 
-    while True:
+    while game_over:
 
         # dificuldade
-        clock.tick(10)
+        clock.tick(frame)
 
         apple = apple_collision(snake, apple)
 
@@ -106,7 +119,7 @@ def run_time_game():
 
         snake, snake_direction = controls(snake, snake_direction)
 
-        snake_collision(snake)
+        game_over = snake_collision(snake)
 
         screen.fill((0, 0, 0))
 
@@ -116,3 +129,4 @@ def run_time_game():
             screen.blit(snake_skin, pos)
 
         pygame.display.update()
+    game_over_screen(game_over, screen, display_sise, clock)
