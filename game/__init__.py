@@ -13,23 +13,23 @@ LEFT = 3
 
 def edge_game(snake, display_sise):
 
-    print(f'x:{snake[0][0]} y:{snake[0][1]}')
+    print(f"x:{snake[0][0]} y:{snake[0][1]}")
 
     if snake[0][0] < 0:
         print("borda esquerda")
-        snake[0] = (display_sise[0] - 10,snake[0][1])
+        snake[0] = (display_sise[0] - 10, snake[0][1])
 
     if snake[0][1] < 0:
         print("borda topo")
         snake[0] = (snake[0][0], display_sise[1] - 10)
 
-    if snake[0][0] >= display_sise[0] :
+    if snake[0][0] >= display_sise[0]:
         print("borda direita")
-        snake[0] = (0,snake[0][1])
+        snake[0] = (0, snake[0][1])
 
     if snake[0][1] >= display_sise[1]:
         print("borda baixo")
-        snake[0] = (snake[0][0],0)
+        snake[0] = (snake[0][0], 0)
 
     return snake
 
@@ -47,13 +47,13 @@ def controls(snake, snake_direction=LEFT):
                 pygame.quit()
                 exit()
 
-            if event.key == K_UP:
+            if event.key == K_UP and not snake_direction == DOWN:
                 snake_direction = UP
-            if event.key == K_DOWN:
+            if event.key == K_DOWN and not snake_direction == UP:
                 snake_direction = DOWN
-            if event.key == K_RIGHT:
+            if event.key == K_RIGHT and not snake_direction == LEFT:
                 snake_direction = RIGHT
-            if event.key == K_LEFT:
+            if event.key == K_LEFT and not snake_direction == RIGHT:
                 snake_direction = LEFT
 
     for i in range(len(snake) - 1, 0, -1):
@@ -102,10 +102,10 @@ def run_time_game():
 
         # controles
 
-        snake = edge_game(snake,display_sise)
+        snake = edge_game(snake, display_sise)
 
         snake, snake_direction = controls(snake, snake_direction)
-        
+
         snake_collision(snake)
 
         screen.fill((0, 0, 0))

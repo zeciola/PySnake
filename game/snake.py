@@ -26,6 +26,6 @@ def rand_snake_start_location(lifes=3):
 def snake_collision(snake):
     i = len(snake)
 
-    for i in range(1,len(snake)):
+    for i in range(1, len(snake)):
         if snake[0] == snake[i]:
-            print('game-over')
+            print("game-over")
