@@ -121,7 +121,7 @@ def run_time_game():
     snake_skin = snake_style()
     snake_direction = LEFT
 
-    apple = rand_apple_pos()
+    apple = rand_apple_pos(snake)
     apple_skin = apple_style()
 
     frame = 10

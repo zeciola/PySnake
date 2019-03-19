@@ -2,11 +2,33 @@ import pygame, random
 from pygame.locals import *
 
 
-def rand_apple_pos():
-    apple = (
-        random.randrange(start=10, stop=590, step=10),
-        random.randrange(start=10, stop=590, step=10),
-    )
+def rand_apple_pos(snake):
+    
+    apple_list = []
+
+    good_apple = True
+
+    i = len(snake)
+
+    while good_apple:
+        apple = (
+            random.randrange(start=10, stop=590, step=10),
+            random.randrange(start=10, stop=590, step=10),
+        )
+
+        for part in range(1, len(snake)):
+            if part == apple:
+                apple_list.append(part == apple)
+            else:
+                apple_list.append(part == apple)
+        good_apple_set = set(apple_list)
+
+        if len(good_apple_set) == 1:
+            if good_apple_set == {False}:
+                good_apple = False
+        import ipdb; ipdb.set_trace()
+        
+
     return apple
 
 

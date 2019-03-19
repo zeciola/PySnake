@@ -9,6 +9,7 @@ pylint = "*"
 [packages]
 pygame = "*"
 black = "*"
+ipdb = "*"
 
 [requires]
 python_version = "3.7"
