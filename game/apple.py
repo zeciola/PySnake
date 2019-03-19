@@ -26,7 +26,7 @@ def rand_apple_pos(snake):
         if len(good_apple_set) == 1:
             if good_apple_set == {False}:
                 good_apple = False
-        import ipdb; ipdb.set_trace()
+        #import ipdb; ipdb.set_trace()
         
 
     return apple
@@ -42,6 +42,6 @@ def apple_collision(snake, apple):
 
     if snake[0] == apple:
         snake.append(apple)
-        apple = rand_apple_pos()
+        apple = rand_apple_pos(snake)
     return apple
     ...
